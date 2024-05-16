@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_base_project_for_beginner/core/common/widgets/centered_loading.dart';
+import 'package:flutter_base_project_for_beginner/common/widgets/centered_loading.dart';
 
 /// Used to show thumbnail when using these packages:
 ///
