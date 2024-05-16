@@ -36,7 +36,26 @@ dependencies:
   flutter:
     sdk: flutter
 
+  flutter_bloc: ^8.1.5
   equatable: ^2.0.5
+
+  # Environment
+  envied: ^0.5.4+1
+
+  # Network
+  dio: ^5.4.3+1
+  connectivity_plus: ^6.0.3
+
+  # Logging
+  # curl_logger_dio_interceptor: ^1.0.0
+  curl_logger_dio_interceptor:
+    git:
+      url: https://github.com/hieubui2409/curl_logger_dio_interceptor
+
+
+  # Store
+  sp_util: ^2.0.3
+  flutter_secure_storage: ^9.2.0
 
   gap: ^3.0.1
 
@@ -53,6 +72,8 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^3.0.0
+
+  envied_generator: ^0.5.4+1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

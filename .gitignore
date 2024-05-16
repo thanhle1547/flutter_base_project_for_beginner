@@ -34,6 +34,13 @@ migrate_working_dir/
 .fvm/
 Makefile
 
+# Environment related
+## dotenv environment variables file
+/env/*.env
+/env/*.env.*
+## Exceptions to above rules
+!/env/*.env.example
+
 *.g.dart
 
 # Symbolication related
