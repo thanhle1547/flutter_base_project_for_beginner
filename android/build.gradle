@@ -1,0 +1,40 @@
+// Released in Flutter 3.19
+// Deprecated imperative apply of Flutter's Gradle plugins
+// https://docs.flutter.dev/release/breaking-changes/flutter-gradle-plugin-apply
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+
+    // What was the problem?
+    //
+    // Problem is about namespace.
+    // Earlier versions of gradle, they removed namespace from AndroidManifest.xml
+    // and transfer to gradle file. Even your project's namespace is transferred
+    // to new system, some flutter plugins may not be updated to recent gradle versions.
+    subprojects {
+        afterEvaluate { project ->
+            if (project.hasProperty('android')) {
+                project.android {
+                    if (namespace == null) {
+                        namespace project.group
+                    }
+                }
+            }
+        }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+tasks.register("clean", Delete) {
+    delete rootProject.buildDir
+}

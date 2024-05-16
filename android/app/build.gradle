@@ -1,0 +1,89 @@
+// Released in Flutter 3.19
+// Deprecated imperative apply of Flutter's Gradle plugins
+// https://docs.flutter.dev/release/breaking-changes/flutter-gradle-plugin-apply
+//
+// Old approach warning detail:
+//
+// You are applying Flutter's app_plugin_loader Gradle plugin imperatively
+// using the apply script method, which is deprecated and will be removed
+// in a future release. Migrate to applying Gradle plugins with
+// the declarative plugins block: https://flutter.dev/go/flutter-gradle-plugin-apply
+//
+// You are applying Flutter's main Gradle plugin imperatively
+// using the apply script method, which is deprecated and will be removed
+// in a future release. Migrate to applying Gradle plugins with
+// the declarative plugins block: https://flutter.dev/go/flutter-gradle-plugin-apply
+
+// Gradle's declarative plugins {} block (also called the Plugin DSL)
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
+def localProperties = new Properties()
+def localPropertiesFile = rootProject.file('local.properties')
+if (localPropertiesFile.exists()) {
+    localPropertiesFile.withReader('UTF-8') { reader ->
+        localProperties.load(reader)
+    }
+}
+
+def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
+if (flutterVersionCode == null) {
+    flutterVersionCode = '1'
+}
+
+def flutterVersionName = localProperties.getProperty('flutter.versionName')
+if (flutterVersionName == null) {
+    flutterVersionName = '1.0'
+}
+
+android {
+    namespace "vn.thanhle1547.flutter_base_project_for_beginner"
+    compileSdk flutter.compileSdkVersion
+    ndkVersion flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId "vn.thanhle1547.flutter_base_project_for_beginner"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
+        minSdkVersion flutter.minSdkVersion
+        targetSdkVersion flutter.targetSdkVersion
+        versionCode flutterVersionCode.toInteger()
+        versionName flutterVersionName
+        multiDexEnabled true
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig signingConfigs.debug
+        }
+    }
+}
+
+flutter {
+    source '../..'
+}
+
+/*
+dependencies {
+    
+}
+*/

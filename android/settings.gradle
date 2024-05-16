@@ -1,0 +1,36 @@
+// Released in Flutter 3.19
+// Deprecated imperative apply of Flutter's Gradle plugins
+// https://docs.flutter.dev/release/breaking-changes/flutter-gradle-plugin-apply
+
+pluginManagement {
+    def flutterSdkPath = {
+        def properties = new Properties()
+        file("local.properties").withInputStream { properties.load(it) }
+        def flutterSdkPath = properties.getProperty("flutter.sdk")
+        assert flutterSdkPath != null, "flutter.sdk not set in local.properties"
+        return flutterSdkPath
+    }
+    settings.ext.flutterSdkPath = flutterSdkPath()
+
+    includeBuild("${settings.ext.flutterSdkPath}/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id "dev.flutter.flutter-plugin-loader" version "1.0.0"
+
+    // Android Gradle Plugin (AGP)
+    // com.android.tools.build:gradle
+    id "com.android.application" version "7.3.0" apply false
+
+    // Kotlin
+    // org.jetbrains.kotlin:kotlin-gradle-plugin
+    id "org.jetbrains.kotlin.android" version "1.7.10" apply false
+}
+
+include ":app"
